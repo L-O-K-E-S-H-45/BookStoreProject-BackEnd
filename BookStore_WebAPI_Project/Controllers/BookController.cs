@@ -59,6 +59,20 @@ namespace BookStore_WebAPI_Project.Controllers
             }
         }
 
+        [HttpGet("getByName")]
+        public IActionResult GetBookByName(string? title, string? author)
+        {
+            try
+            {
+                var books = bookBusiness.GetBookByName(title, author).ToList();
+                return Ok(new ResponseModel<List<Book>> { IsSuccess = true, Message = "Books fetched successfully", Data = books });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseModel<string> { IsSuccess = false, Message = "Failed to fetch books", Data = ex.Message });
+            }
+        }
+
         [HttpPut("update")]
         public IActionResult UpdateBook(int bookId, BookModel bookModel)
         {

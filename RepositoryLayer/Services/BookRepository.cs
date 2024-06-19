@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Reflection.Metadata.BlobBuilder;
@@ -154,6 +155,53 @@ namespace RepositoryLayer.Services
                         return book;
                     }
                     return null;
+                }
+                else throw new Exception("SqlConnection is not established");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally { sqlConnection.Close(); }
+        }
+
+        public List<Book> GetBookByName(string title, string author)
+        {
+            try
+            {
+                if (sqlConnection != null)
+                {
+                    List<Book> books = new List<Book>();
+
+                    SqlCommand sqlCommand = new SqlCommand("usp_GetBookByNames", sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@Title", title);
+                    sqlCommand.Parameters.AddWithValue("@Author", author);
+
+                    sqlConnection.Open();
+                    SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        Book book = new Book()
+                        {
+                            BookId = (int)dataReader["BookId"],
+                            Title = (string)dataReader["Title"],
+                            Author = (string)dataReader["Author"],
+                            Description = (string)dataReader["Description"],
+                            Rating = (decimal)dataReader["Rating"],
+                            RatingCount = (int)dataReader["RatingCount"],
+                            OriginalPrice = (int)dataReader["OriginalPrice"],
+                            DiscountPercentage = (int)dataReader["DiscountPercentage"],
+                            Price = (int)dataReader["Price"],
+                            Quantity = (int)dataReader["Quantity"],
+                            Image = (string)dataReader["Image"],
+                            IsDeleted = (bool)dataReader["IsDeleted"],
+                            CreatedAt = (DateTime)dataReader["CreatedAt"],
+                            UpdatedAt = (DateTime)dataReader["UpdatedAt"],
+                        };
+                        books.Add(book);
+                    }
+                    return books;
                 }
                 else throw new Exception("SqlConnection is not established");
             }

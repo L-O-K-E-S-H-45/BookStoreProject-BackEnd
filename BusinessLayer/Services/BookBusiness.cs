@@ -32,6 +32,11 @@ namespace BusinessLayer.Services
             return bookRepository.GetBookById(bookId);
         }
 
+        public List<Book> GetBookByName(string title, string author)
+        {
+            return bookRepository.GetBookByName(title, author);
+        }
+
         public Book UpdateBook(int bookId, BookModel bookModel)
         {
             return bookRepository.UpdateBook(bookId, bookModel);

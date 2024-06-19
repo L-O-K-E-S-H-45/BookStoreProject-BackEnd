@@ -16,6 +16,8 @@ namespace RepositoryLayer.Interfaces
 
         Book GetBookById(int bookId);
 
+        List<Book> GetBookByName(string title, string author);
+
         Book UpdateBook(int bookId, BookModel bookModel);
 
         bool DeleteBook(int bookId);
