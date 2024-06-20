@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using MassTransit;
+using RepositoryLayer.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,11 +19,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddSingleton<BookContext>();
+
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IUserBusiness, UserBusiness>();
 
 builder.Services.AddTransient<IBookRepository, BookRepository>();
 builder.Services.AddTransient<IBookBusiness, BookBusiness>();
+
+builder.Services.AddTransient<ICartRepository, CartRepository>();
+builder.Services.AddTransient<ICartBusiness, CartBusiness>();
+
+builder.Services.AddTransient<IWishlistRepository, WishlistRepository>();
+builder.Services.AddTransient<IWishlistBusiness, WishlistBusiness>();
 
 builder.Services.AddMassTransit(x =>
 {
