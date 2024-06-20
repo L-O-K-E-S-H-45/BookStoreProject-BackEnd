@@ -15,7 +15,7 @@ namespace RepositoryLayer.Services
     public class WishlistRepository : IWishlistRepository
     {
         private readonly BookContext bookContext;
-        private readonly SqlConnection sqlConnection;
+        private readonly SqlConnection sqlConnection = null;
         public WishlistRepository(BookContext bookContext)
         {
             this.bookContext = bookContext;

@@ -33,6 +33,9 @@ builder.Services.AddTransient<ICartBusiness, CartBusiness>();
 builder.Services.AddTransient<IWishlistRepository, WishlistRepository>();
 builder.Services.AddTransient<IWishlistBusiness, WishlistBusiness>();
 
+builder.Services.AddTransient<IAddressrepository, AddressRepository>();
+builder.Services.AddTransient<IAddressBusiness, AddressBusiness>();
+
 builder.Services.AddMassTransit(x =>
 {
     x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>

@@ -8,7 +8,7 @@ BookId int foreign key references Books(BookId),
 Title nvarchar(max) not null,
 Author nvarchar(max) not null,
 Image nvarchar(max) not null,
-Quantity int default 1 check(Quantity >= 1),  -- because in real world example(flipkart), while adding product to cart we don't have option for quantity
+Quantity int default 1 check(Quantity between 1 and 5),  -- because in real world example(flipkart), while adding product to cart we don't have option for quantity
 OriginalBookPrice int not null,
 FinalBookPrice int not null,
 )
@@ -109,11 +109,12 @@ begin
 	end catch
 end;
 
+select * from Carts
 
 select * from Users
 select * from Books
 
-exec usp_AddBookToCart @UserId = 3, @BookId = 1
+exec usp_AddBookToCart @UserId = 2, @BookId = 5
 
 
 --------------------------------------  ViewAllCarts  ------------------------------------
@@ -204,7 +205,7 @@ begin
 	begin try	
 		if exists (select 1 from Carts where CartId = @CartId)
 		begin
-			if (@Quantity >= 1)
+			if (@Quantity between 1 and 5)
 			begin
 				update Carts set Quantity = @Quantity, OriginalBookPrice = (OriginalBookPrice/Quantity * @Quantity), FinalBookPrice = FinalBookPrice/Quantity * @Quantity
 					where CartId = @CartId;
@@ -213,7 +214,7 @@ begin
 			end
 			else
 			begin
-				SET @ErrorMessage = 'Quantity cannot be less than 1';
+				SET @ErrorMessage = 'Quantity must be between 1 and 5';
 				RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorStatus);
 			end
 		end
@@ -226,7 +227,6 @@ begin
 	begin catch
 		SET @ErrorMessage = ERROR_MESSAGE();
 		RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorStatus);
-		throw;
 	end catch
 end;
 
@@ -281,7 +281,7 @@ end;
 
 select * from Carts
 
-exec usp_RemoveBookFromcart @CartId = 1
+exec usp_RemoveBookFromcart @CartId = 5
 
 
 ------------------------- CountBooksInUserCart ---------------
@@ -334,7 +334,6 @@ select * from Users
 
 select * from Books
 
-delete 
 
 
 

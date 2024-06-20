@@ -15,7 +15,7 @@ namespace RepositoryLayer.Services
     public class CartRepository : ICartRepository
     {
         private readonly BookContext bookContext;
-        private readonly SqlConnection sqlConnection;
+        private readonly SqlConnection sqlConnection = null;
         public CartRepository(BookContext bookContext)
         {
             this.bookContext = bookContext;
