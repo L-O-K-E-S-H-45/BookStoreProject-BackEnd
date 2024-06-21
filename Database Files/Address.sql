@@ -60,14 +60,16 @@ begin
 				if exists (select 1 from Addresses where UserId = @UserId and Type = @Type)
 				begin
 					set @ErrorMessage = 'Address already exist for user id: ' + CAST(@UserId as nvarchar(50)) + ' with address type: ' + @Type;
-					RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorStatus);
+					RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorStatus); 
 				end
+				else
+				begin
+					insert into Addresses (UserId, FullName, Mobile, Address, City, State, Type)
+						values (@UserId, @FullName, @Mobile, @Address, @City, @State, @Type COLLATE Latin1_General_BIN);
 
-				insert into Addresses (UserId, FullName, Mobile, Address, City, State, Type)
-					values (@UserId, @FullName, @Mobile, @Address, @City, @State, @Type COLLATE Latin1_General_BIN);
-
-				declare @AddressId int = SCOPE_IDENTITY();
-				select * from Addresses where AddressId = @AddressId;
+					declare @AddressId int = SCOPE_IDENTITY();
+					select * from Addresses where AddressId = @AddressId;
+				end
 			end
 			else
 			begin

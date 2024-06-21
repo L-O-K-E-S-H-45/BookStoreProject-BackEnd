@@ -76,6 +76,7 @@ select * from Books
 exec usp_AddBook 'Book1', 'Author1', 'Desc for book1', 1800, 15, 12, 'Book1-image'
 exec usp_AddBook 'Book2', 'Author2', 'Desc for book2', 2500, 20, 36, 'Book2-image'
 exec usp_AddBook 'Book3', 'Author3', 'Desc for book3', 950, 8, 22, 'Book3-image'
+exec usp_AddBook 'Book7', 'Author6', 'Desc for book7', 1500, 26, 10, 'Book7-image'
 
 
 ------ GetAllBooks

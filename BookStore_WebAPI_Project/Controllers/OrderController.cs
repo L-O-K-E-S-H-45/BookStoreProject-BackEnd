@@ -41,7 +41,6 @@ namespace BookStore_WebAPI_Project.Controllers
         {
             try
             {
-
                 var orders = orderBusiness.ViewAllOrders().ToList();
                 return Ok(new ResponseModel<object> { IsSuccess = true, Message = "Orders fetched successfully", Data = orders });
             }
@@ -83,7 +82,7 @@ namespace BookStore_WebAPI_Project.Controllers
             }
         }
 
-        [HttpGet("cancelorder/{orderId}")]
+        [HttpDelete("cancelorder/{orderId}")]
         public IActionResult CancelOrder(int orderId)
         {
             try

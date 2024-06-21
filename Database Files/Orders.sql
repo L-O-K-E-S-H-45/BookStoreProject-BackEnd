@@ -116,7 +116,7 @@ select* from Books
 
 select * from Orders
 
-exec usp_PlaceOrder @UserId = 2, @CartId = 2
+exec usp_PlaceOrder @UserId = 3, @CartId = 10
 
 
 ------------------------  ViewAllOrders  ---------------------------------

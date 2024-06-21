@@ -123,7 +123,7 @@ select * from Carts
 select * from Users
 select * from Books
 
-exec usp_AddBookToCart @UserId = 3, @BookId = 5
+exec usp_AddBookToCart @UserId = 6, @BookId = 8
 
 
 --------------------------------------  ViewAllCarts  ------------------------------------
@@ -241,7 +241,7 @@ end;
 
 select * from Carts
 
-exec usp_UpdateCart @CartId = 5, @Quantity = 3
+exec usp_UpdateCart @CartId =12 , @Quantity = 2
 
 
 --------------------------------------  RemoveBookFromcart  ------------------------------------

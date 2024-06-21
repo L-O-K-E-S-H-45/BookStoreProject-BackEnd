@@ -68,8 +68,8 @@ namespace BookStore_WebAPI_Project.Controllers
         }
 
         [Authorize]
-        [HttpPut("getById/{addressId}")]
-        public IActionResult UpdateAddress(int addressId)
+        [HttpGet("getById/{addressId}")]
+        public IActionResult GetAddressById(int addressId)
         {
             try
             {
@@ -101,6 +101,7 @@ namespace BookStore_WebAPI_Project.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("delete")]
         public IActionResult DeleteAddress(int addressId)
         {

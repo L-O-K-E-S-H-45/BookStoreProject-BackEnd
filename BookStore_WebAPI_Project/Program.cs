@@ -39,6 +39,9 @@ builder.Services.AddTransient<IAddressBusiness, AddressBusiness>();
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 builder.Services.AddTransient<IOrderBusiness, OrderBusiness>();
 
+builder.Services.AddTransient<IFeedbackRepository, FeedbackRepository>();
+builder.Services.AddTransient<IFeedbackBusiness, FeedbackBusiness>();
+
 builder.Services.AddMassTransit(x =>
 {
     x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>

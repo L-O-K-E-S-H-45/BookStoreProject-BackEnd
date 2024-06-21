@@ -98,7 +98,7 @@ begin
 		end
 		else
 		begin
-			set @ErrorMessage = 'User already exists for email id: ' + @Email;
+			set @ErrorMessage = 'User already exists for email id: ' + o@Email;
 			RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorStatus);
 		end
 	end try
@@ -107,10 +107,11 @@ begin
 	end catch
 end;
 
-exec usp_InsertUser 'Scott', 'scott123@gmail.com', 'Scott@123', 7678123456;
+exec usp_InsertUser 'Allen', 'allen123@gmail.com', 'Allen@123', 7678123456;
 
 
-exec usp_InsertUser 'Scott', 'scott123@gmail.com', 'Scott@123', 7654321234
+exec usp_InsertUser 'Miller', 'miller123@gmail.com', 'Miller@123', 7654321234
+exec usp_InsertUser 'Jerry', 'jerry123@gmail.com', 'Jerry@123', 7654321234
 
 
 select * from Users
