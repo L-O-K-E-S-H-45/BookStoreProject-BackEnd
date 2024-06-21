@@ -11,6 +11,7 @@ Image nvarchar(max) not null,
 Quantity int default 1 check(Quantity between 1 and 5),  -- because in real world example(flipkart), while adding product to cart we don't have option for quantity
 OriginalBookPrice int not null,
 FinalBookPrice int not null,
+--IsDeleted bit default 0
 )
 
 --drop table Carts
@@ -83,6 +84,14 @@ begin
 					select * from Carts where CartId = @CartId;
 					return;
 				end
+
+				--else if exists (select 1 from Carts where UserId = @UserId and BookId = @BookId where IsDeleted = 1)
+				--begin
+				--	update Carts set IsDeleted = 0 where UserId = @UserId and BookId = @BookId where IsDeleted = 1;
+				--	select * from Carts where CartId = @CartId;
+				--	return;
+				--end
+
 				else
 				begin
 					set @ErrorMessage = 'Book already added to the cart, Please go to cart';
@@ -114,7 +123,7 @@ select * from Carts
 select * from Users
 select * from Books
 
-exec usp_AddBookToCart @UserId = 2, @BookId = 5
+exec usp_AddBookToCart @UserId = 3, @BookId = 5
 
 
 --------------------------------------  ViewAllCarts  ------------------------------------
@@ -181,7 +190,7 @@ begin
 	end catch
 end;
 
-exec usp_ViewCartByUser @UserId = 2
+exec usp_ViewCartByUser @UserId = 3
 
 select * from Carts
 
@@ -232,7 +241,7 @@ end;
 
 select * from Carts
 
-exec usp_UpdateCart @CartId = 2, @Quantity = 3
+exec usp_UpdateCart @CartId = 5, @Quantity = 3
 
 
 --------------------------------------  RemoveBookFromcart  ------------------------------------
