@@ -300,15 +300,167 @@ select * from Books
 exec usp_DeleteBook 2
 
 
+------------------------------- Review Task  ----------------------------
+
+-- 1) Find the book using any two columns of table.
+
+create or alter proc usp_Book_ByTitleAndPrice(
+@Title nvarchar(max),
+@Price int
+)
+as
+begin
+	--set nocount on;
+	declare @ErrorMessage nvarchar(max);
+	declare @ErrorStatus int;
+	declare @ErrorSeverity int;
+	set @ErrorSeverity = 16;
+	set @ErrorStatus = 1;
+	begin try	
+
+		if @Title is null or
+			@Price is null 
+		begin
+			set @ErrorMessage = 'Please provide all the parameters';
+			RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorStatus);
+			return;
+		end
+
+		if exists (select 1 from Books where Title = @Title and Price <= @Price)
+		begin
+			select * from Books where Title = @Title and Price <= @Price
+		end
+		else
+		--if (@@ROWCOUNT = 0) 
+		begin
+			set @ErrorMessage = 'Books did not found for Title: ' + @Title + ' & with price less than or equals to: ' + CAST(@Price as nvarchar(50));
+			RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorStatus);
+			return;
+		end
+
+		end try
+	begin catch
+		throw;
+	end catch
+end;
+
+exec usp_Book_ByTitleAndPrice @Title = 'Book5', @Price = 1500
+exec usp_Book_ByTitleAndPrice @Title = 'Book5', @Price = 1200
+exec usp_Book_ByTitleAndPrice @Title = 'Book5', @Price = 100
 
 
+--------------------------
 
+--2)Find the data using bookid, if it exst update the data else insert the new book record.
 
+create or alter proc usp_Insert_Update_Book(
+@BookId int,
+@Title nvarchar(max),
+@Author nvarchar(max),
+@Description nvarchar(max),
+@OriginalPrice int,
+@DiscountPercentage int,
+@Quantity int,
+@Image nvarchar(max)
+)
+as
+begin
+	set nocount on;
+	declare @ErrorMessage nvarchar(max);
+	declare @ErrorStatus int;
+	declare @ErrorSeverity int;
+	set @ErrorSeverity = 16;
+	set @ErrorStatus = 1;
+	begin try	
 
+		if @BookId is null or @BookId = 0 or
+			@Title is null or
+			@Author is null or
+			@Description is null or
+			@OriginalPrice is null or
+			@DiscountPercentage is null or
+			@Quantity is null or
+			@Image is null 
+		begin
+			set @ErrorMessage = 'Please provide all the parameters';
+			RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorStatus);
+			return;
+		end
 
+		if exists (select 1 from Books where Title = @Title and Author = @Author and IsDeleted = 0)
+		begin
+			set @ErrorMessage = 'Book already exist with Title: ' + @Title + ' and Author: ' + @Author;
+			RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorStatus);
+			return;
+		end
+		else
+		begin
 
+			if not exists(select 1 from Books where BookId = @BookId)
+			begin
+				insert into Books(Title, Author, Description, OriginalPrice, DiscountPercentage, Quantity, Image)
+					values (@Title, @Author, @Description, @OriginalPrice, @DiscountPercentage, @Quantity, @Image)
+				
+				set @BookId = SCOPE_IDENTITY();
+				select * from Books where BookId = @BookId;
+				return;
+			end 
+			else 
+			begin
+				declare @Update datetime = getdate();
+				update Books set Title = @Title, Author	= @Author, Description = @Description, OriginalPrice = @OriginalPrice,
+					DiscountPercentage = @DiscountPercentage, Quantity = @Quantity, Image = @Image, UpdatedAt = @Update, IsDeleted = 0
+					where BookId = @BookId;
+			
+				select * from Books where BookId = @BookId;
+			end 
 
+		end
 
+	end try
+	begin catch
+		throw;
+	end catch
+end;
+
+select * from Books
+update Books set Rating = 0 where BookId = 1
+
+exec usp_Insert_Update_Book @BookId	= 1, @Title = 'Book-1' , @Author = 'Author1', @Description = 'Desc for book', 
+		@OriginalPrice = 2000, @DiscountPercentage = 10, @Quantity = 20, @Image = 'Book1-image'
+
+------------------
+
+-- 3) Display wishlist or cart details alongwith the user who has added it
+
+create or alter proc usp_CartDetilsWithUser
+as
+begin
+	set nocount on;
+	declare @ErrorMessage nvarchar(max);
+	declare @ErrorStatus int;
+	declare @ErrorSeverity int;
+	set @ErrorSeverity = 16;
+	set @ErrorStatus = 1;
+	begin try
+		
+		select c.CartId, c.BookId, c.Title, c.Author, c.Image, c.Quantity,
+				c.OriginalBookPrice, c.FinalBookPrice, 
+				u.UserId, u.FullName, u.Email, u.Mobile
+				from Carts c join Users u on c.UserId = u.UserId
+
+	end try
+	begin catch
+		set @ErrorMessage = ERROR_MESSAGE();
+		RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorStatus);
+		--throw;
+	end catch
+end;
+
+select * from Users
+select * from Carts
+
+exec usp_CartDetilsWithUser
 
 
 

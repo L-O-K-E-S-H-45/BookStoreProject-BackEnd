@@ -17,5 +17,8 @@ namespace RepositoryLayer.Interfaces
         bool RemoveBookFromCart(int cartId);
         int NoOfBooksInUserCart(int userId);
 
+        // review Task
+        object GetCartDetailsWithUser();
+
     }
 }

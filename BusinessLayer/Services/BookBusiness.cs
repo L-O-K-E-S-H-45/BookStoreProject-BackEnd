@@ -46,5 +46,17 @@ namespace BusinessLayer.Services
         {
             return bookRepository.DeleteBook(bookId);
         }
+
+        // review
+        public List<Book> GetBook_ByTitleAndPrice(string title, int price)
+        {
+            return bookRepository.GetBook_ByTitleAndPrice(title, price);
+        }
+
+        public Book Insert_Update_Book(int bookId, BookModel bookModel)
+        {
+            return bookRepository.Insert_Update_Book(bookId, bookModel);
+        }
+
     }
 }

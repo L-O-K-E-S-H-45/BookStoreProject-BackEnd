@@ -33,7 +33,7 @@ builder.Services.AddTransient<ICartBusiness, CartBusiness>();
 builder.Services.AddTransient<IWishlistRepository, WishlistRepository>();
 builder.Services.AddTransient<IWishlistBusiness, WishlistBusiness>();
 
-builder.Services.AddTransient<IAddressrepository, AddressRepository>();
+builder.Services.AddTransient<IAddressRepository, AddressRepository>();
 builder.Services.AddTransient<IAddressBusiness, AddressBusiness>();
 
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
@@ -41,6 +41,9 @@ builder.Services.AddTransient<IOrderBusiness, OrderBusiness>();
 
 builder.Services.AddTransient<IFeedbackRepository, FeedbackRepository>();
 builder.Services.AddTransient<IFeedbackBusiness, FeedbackBusiness>();
+
+builder.Services.AddTransient<IAdminRepository, AdminRepository>();
+builder.Services.AddTransient<IAdminBusiness, AdminBusiness>();
 
 builder.Services.AddMassTransit(x =>
 {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RepositoryLayer.Interfaces
 {
-    public interface IAddressrepository
+    public interface IAddressRepository
     {
         AddressEntity AddAddress(int userId, AddressModel addressModel);
         List<AddressEntity> GetAllAddresses();

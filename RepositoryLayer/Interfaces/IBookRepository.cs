@@ -21,5 +21,9 @@ namespace RepositoryLayer.Interfaces
         Book UpdateBook(int bookId, BookModel bookModel);
 
         bool DeleteBook(int bookId);
+
+        // Review Task
+        List<Book> GetBook_ByTitleAndPrice(string title, int price);
+        Book Insert_Update_Book(int bookId, BookModel bookModel);
     }
 }

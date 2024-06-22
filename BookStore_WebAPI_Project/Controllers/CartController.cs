@@ -113,6 +113,20 @@ namespace BookStore_WebAPI_Project.Controllers
             }
         }
 
+        // Review
+        [HttpGet("cartDetailsWithUser")]
+        public object GetCartDetailsWithUser()
+        {
+            try
+            {
+                var result = cartBusiness.GetCartDetailsWithUser();
+                return Ok(new ResponseModel<object> { IsSuccess = true, Message = "Carts details with user found successfull", Data =  result });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseModel<string> { IsSuccess = false, Message = "Failed to fetch carts details with  user", Data = ex.Message });
+            }
+        }
 
     }
 }

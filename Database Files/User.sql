@@ -173,6 +173,14 @@ begin
 	set @ErrorSeverity = 16;
 	set @ErrorStatus = 1;
 	begin try
+
+		if @Email is null or @Email = '' or
+			@Password is null or @Password = ''
+		BEGIN
+            SET @ErrorMessage = 'Please provide Email and Password';
+            RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorStatus);
+        END
+
 		 -- Check if user exists
         IF EXISTS (SELECT 1 FROM Users WHERE Email COLLATE Latin1_General_BIN = @Email and IsDeleted = 0)
         BEGIN

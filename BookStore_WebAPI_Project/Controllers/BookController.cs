@@ -101,5 +101,39 @@ namespace BookStore_WebAPI_Project.Controllers
             }
         }
 
+        // Review tasks
+        // 1) Find the book using any two columns of table.
+        [HttpGet("getByTitleAndPrice")]
+        public IActionResult GetBookByTitleAndPrice(string title, int price)
+        {
+            try
+            {
+                var books = bookBusiness.GetBook_ByTitleAndPrice(title, price);
+                return Ok(new ResponseModel<List<Book>> { IsSuccess = true, Message = "Books fetched successfully", Data = books });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseModel<string> { IsSuccess = false, Message = "Failed to fetch books", Data = ex.Message });
+            }
+        }
+
+        //  2)Find the data using bookid, if it exst update the data else insert the new book record.
+        [HttpPost("InsertOrUpdate")]
+        public IActionResult Insert_Update_Book(int bookId, BookModel bookModel)
+        {
+            try
+            {
+                var book = bookBusiness.Insert_Update_Book(bookId, bookModel);
+                if (book.BookId != bookId)
+                    return Ok(new ResponseModel<Book> { IsSuccess = true, Message = "Book inserted successfully", Data = book });
+                else
+                    return Ok(new ResponseModel<Book> { IsSuccess = true, Message = "Book updated successfully", Data = book });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseModel<string> { IsSuccess = false, Message = "Failed to insert or update book", Data = ex.Message });
+            }
+        }
+
     }
 }

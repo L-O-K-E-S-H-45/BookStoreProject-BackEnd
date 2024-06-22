@@ -7,8 +7,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace RepositoryLayer.Services
 {
@@ -220,10 +222,57 @@ namespace RepositoryLayer.Services
 
                     sqlConnection.Open();
                     int nora = sqlCommand.ExecuteNonQuery();
-                    var result = (int)returnParameter.Value;
-                    if (nora > 0)
-                        return result;
-                    else throw new Exception("Your cart is empty");
+
+                    int result = (int)returnParameter.Value;
+
+                    return result;
+                }
+                else throw new Exception("SqlConnection is not established");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally { sqlConnection.Close(); }
+        }
+
+        //Review task
+        // -- 3) Display wishlist or cart details alongwith the user who has added it
+        public object GetCartDetailsWithUser()
+        {
+            try
+            {
+                if (sqlConnection != null)
+                {
+                    List<Dictionary<string,object>> carts = new List<Dictionary<string,object>>();
+
+                    SqlCommand sqlCommand = new SqlCommand("exec usp_CartDetilsWithUser", sqlConnection);
+
+                    sqlConnection.Open();
+                    SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+
+                        Dictionary<string, object> data = new Dictionary<string, object>()
+                        {
+                            
+                                {"CartId", dataReader["CartId"]},
+                                {"BookId" , dataReader["BookId"] },
+                                {"Title" , dataReader["Title"] },
+                                {"Author" , dataReader["Author"] },
+                                {"Image" , (string)dataReader["Image"] },
+                                {"Quantity" , dataReader["Quantity"] },
+                                {"OriginalBookPrice" , dataReader["OriginalBookPrice"] },
+                                {"FinalBookPrice" , dataReader["FinalBookPrice"] },
+                                {"UserId" , dataReader["UserId"] },
+                                {"FullName" , dataReader["FullName"] },
+                                {"Email" , dataReader["Email"] },
+                                {"Mobile" , dataReader["Mobile"] }
+                            
+                        };
+                        carts.Add(data);
+                    }
+                    return carts;
                 }
                 else throw new Exception("SqlConnection is not established");
             }

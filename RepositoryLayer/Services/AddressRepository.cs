@@ -10,9 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLayer.Services
+namespace RepositoryLayer.Services
 {
-    public class AddressRepository : IAddressrepository
+    public class AddressRepository : IAddressRepository
     {
         private readonly BookContext bookContext;
         private readonly SqlConnection sqlConnection = null;

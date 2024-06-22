@@ -45,5 +45,12 @@ namespace BusinessLayer.Services
         {
             return cartRepository.NoOfBooksInUserCart(userId);
         }
+
+        // Review 
+        public object GetCartDetailsWithUser()
+        {
+            return cartRepository.GetCartDetailsWithUser();
+        }
+
     }
 }

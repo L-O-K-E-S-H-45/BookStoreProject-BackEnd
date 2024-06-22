@@ -16,5 +16,8 @@ namespace BusinessLayer.Interfaces
         Cart UpdateCart(int cartId, int quantity);
         bool RemoveBookFromCart(int cartId);
         int NoOfBooksInUserCart(int userId);
+
+        // Review 
+        public object GetCartDetailsWithUser();
     }
 }
