@@ -13,7 +13,7 @@ namespace RepositoryLayer.Entities
     {
         public int OrderId { get; set; }
         public int UserId { get; set; }
-        //public int CartId { get; set; }
+        public int AddressId { get; set; }
         public int BookId { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }

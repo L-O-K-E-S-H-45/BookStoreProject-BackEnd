@@ -21,13 +21,13 @@ namespace BookStore_WebAPI_Project.Controllers
 
         [Authorize]
         [HttpPost("placeorder")]
-        public IActionResult PlaceOrder(int cartId)
+        public IActionResult PlaceOrder(int cartId, int addressId)
         {
             try
             {
                 var userId = int.Parse(User.FindFirstValue("UserId"));
 
-                var order = orderBusiness.PlaceOrder(userId, cartId);
+                var order = orderBusiness.PlaceOrder(userId, cartId, addressId);
                 return Ok(new ResponseModel<object> { IsSuccess = true, Message = "Order placed successfully", Data = order });
             }
             catch (Exception ex)

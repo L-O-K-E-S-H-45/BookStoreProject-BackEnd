@@ -45,6 +45,9 @@ builder.Services.AddTransient<IFeedbackBusiness, FeedbackBusiness>();
 builder.Services.AddTransient<IAdminRepository, AdminRepository>();
 builder.Services.AddTransient<IAdminBusiness, AdminBusiness>();
 
+
+
+
 builder.Services.AddMassTransit(x =>
 {
     x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
@@ -126,6 +129,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// with a named pocili
+app.UseCors("AllowOrigin");
+
+// second-way for corsPolicy
+//// Shows UseCors with CorsPolicyBuilder.
+app.UseCors(builder =>
+{
+    builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+});
 
 app.UseAuthentication();
 

@@ -17,9 +17,9 @@ namespace BusinessLayer.Services
             this.orderRepository = orderRepository;
         }
 
-        public object PlaceOrder(int userId, int cartId)
+        public object PlaceOrder(int userId, int cartId, int addressId)
         {
-            return orderRepository.PlaceOrder(userId, cartId);
+            return orderRepository.PlaceOrder(userId, cartId, addressId);
         }
 
         public List<Orders> ViewAllOrders()

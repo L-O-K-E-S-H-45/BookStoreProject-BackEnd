@@ -4,7 +4,7 @@ use BookStoreDB
 create table Orders(
 	OrderId int primary key identity,
 	UserId int foreign key references Users(UserId),
-	--CartId int foreign key references Carts(CartId),
+	AddressId int foreign key references Addresses(AddressId),
 	BookId int foreign key references Books(BookId),
 	Title nvarchar(max) not null,
 	Author nvarchar(max) not null,
@@ -17,14 +17,18 @@ create table Orders(
 )
 
 --drop table Orders
+--drop table Addresses
 
 select * from Orders
+
+select * from Addresses
 
 ------------------------------------  PlaceOrder  --------------------------------
 
 create or alter proc usp_PlaceOrder (
 @UserId int,
-@CartId int
+@CartId int,
+@AddressId int
 )
 as
 begin
@@ -37,7 +41,7 @@ begin
 	begin try	
 
 		-- validate inputs
-		if (@UserId is null or @UserId  = 0 or @CartId is null or @CartId = 0)
+		if (@UserId is null or @UserId  = 0 or @CartId is null or @CartId = 0 or @AddressId is null or @AddressId = 0)
 		begin
 			set @ErrorMessage = 'UserId or CartId cannot be null or zero'
 			RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorStatus);
@@ -54,6 +58,13 @@ begin
 		if not exists (select 1 from Carts where UserId = @UserId and CartId = @CartId)
 		begin
 			set @ErrorMessage = FORMATMESSAGE('Cart does not exist for user id: %d with cart id: %d', @UserId, @CartId);
+			RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorStatus);
+			return;
+		end
+
+		if not exists (select 1 from Addresses where UserId = @UserId and AddressId = @AddressId)
+		begin
+			set @ErrorMessage = FORMATMESSAGE('Address does not exist for user id: %d with address id: %d', @UserId, @AddressId);
 			RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorStatus);
 			return;
 		end
@@ -85,8 +96,8 @@ begin
 		else
 		begin
 			-- insert into Orders 
-			insert into Orders(UserId, BookId, Title, Author, Image, Quantity, TotalOriginalBookPrice, TotalFinalBookPrice)
-				values (@UserId, @BookId, @Title, @Author, @Image, @Quantity, @TotalOriginalBookPrice, @TotalFinalBookPrice);
+			insert into Orders(UserId, AddressId, BookId, Title, Author, Image, Quantity, TotalOriginalBookPrice, TotalFinalBookPrice)
+				values (@UserId, @AddressId, @BookId, @Title, @Author, @Image, @Quantity, @TotalOriginalBookPrice, @TotalFinalBookPrice);
 				
 
 			-- Reduce book quantity in original Books table

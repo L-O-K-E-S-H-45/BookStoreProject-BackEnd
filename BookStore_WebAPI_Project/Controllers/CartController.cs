@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Interfaces;
 using BusinessLayer.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ModelLayer.Models;
@@ -19,6 +20,7 @@ namespace BookStore_WebAPI_Project.Controllers
             this.cartBusiness = cartBusiness;
         }
 
+        [Authorize]
         [HttpPost("addBookToCart")]
         public IActionResult AddBookToCart(Cart_WishListModel? cart_WishListModel)
         {
@@ -53,6 +55,7 @@ namespace BookStore_WebAPI_Project.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("cartByUser")]
         public IActionResult ViewCartByUser()
         {
@@ -69,6 +72,7 @@ namespace BookStore_WebAPI_Project.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("update")]
         public IActionResult UpdateCart(int cartId, int quantity)
         {
@@ -83,6 +87,7 @@ namespace BookStore_WebAPI_Project.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("delete")]
         public IActionResult RemoveBookFromCart(int cartId)
         {
@@ -97,7 +102,8 @@ namespace BookStore_WebAPI_Project.Controllers
             }
         }
 
-        [HttpGet("countBooksForUser")]
+        [Authorize]
+        [HttpGet("countUsersCartItems")]
         public IActionResult NoOfBooksInUserCart()
         {
             try

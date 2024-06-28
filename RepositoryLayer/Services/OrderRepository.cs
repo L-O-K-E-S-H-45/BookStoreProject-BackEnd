@@ -22,7 +22,7 @@ namespace RepositoryLayer.Services
             this.sqlConnection = (SqlConnection?)bookContext.GetDbConnection();
         }
 
-        public object PlaceOrder(int userId, int cartId)
+        public object PlaceOrder(int userId, int cartId, int addressId)
         {
             try
             {
@@ -32,6 +32,7 @@ namespace RepositoryLayer.Services
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     sqlCommand.Parameters.AddWithValue("@UserId", userId);
                     sqlCommand.Parameters.AddWithValue("@CartId", cartId);
+                    sqlCommand.Parameters.AddWithValue("@AddressId", addressId);
 
                     sqlConnection.Open();
                     SqlDataReader dataReader = sqlCommand.ExecuteReader();
@@ -41,7 +42,7 @@ namespace RepositoryLayer.Services
                         {
                             OrderId = (int)dataReader["OrderId"],
                             UserId = (int)dataReader["UserId"],
-                            //CartId = (int)dataReader["CartId"],
+                            AddressId = (int)dataReader["AddressId"],
                             BookId = (int)dataReader["BookId"],
                             Title = (string)dataReader["Title"],
                             Author = (string)dataReader["Author"],
@@ -83,6 +84,7 @@ namespace RepositoryLayer.Services
                         {
                             OrderId = (int)dataReader["OrderId"],
                             UserId = (int)dataReader["UserId"],
+                            AddressId = (int)dataReader["AddressId"],
                             BookId = (int)dataReader["BookId"],
                             Title = (string)dataReader["Title"],
                             Author = (string)dataReader["Author"],
@@ -128,7 +130,7 @@ namespace RepositoryLayer.Services
                         {
                             OrderId = (int)dataReader["OrderId"],
                             UserId = (int)dataReader["UserId"],
-                            //CartId = (int)dataReader["CartId"],
+                            AddressId = (int)dataReader["AddressId"],
                             BookId = (int)dataReader["BookId"],
                             Title = (string)dataReader["Title"],
                             Author = (string)dataReader["Author"],
@@ -170,6 +172,7 @@ namespace RepositoryLayer.Services
                         {
                             OrderId = (int)dataReader["OrderId"],
                             UserId = (int)dataReader["UserId"],
+                            AddressId = (int)dataReader["AddressId"],
                             BookId = (int)dataReader["BookId"],
                             Title = (string)dataReader["Title"],
                             Author = (string)dataReader["Author"],
@@ -212,6 +215,7 @@ namespace RepositoryLayer.Services
                         {
                             OrderId = (int)dataReader["OrderId"],
                             UserId = (int)dataReader["UserId"],
+                            AddressId = (int)dataReader["AddressId"],
                             BookId = (int)dataReader["BookId"],
                             Title = (string)dataReader["Title"],
                             Author = (string)dataReader["Author"],
