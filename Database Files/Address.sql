@@ -325,6 +325,9 @@ begin
 		if exists (select 1 from Addresses where UserId = @UserId and AddressId = @AddressId)
 		begin
 			 
+			 -- deleting AddressId(making null) in Orders table before deleting address
+			 update Orders set AddressId = null where AddressId = @AddressId;
+
 			delete from Addresses where UserId = @UserId and AddressId = @AddressId;
 
 			if (@@ROWCOUNT != 1)
@@ -345,6 +348,7 @@ begin
 end;
 
 select * from Addresses
+select * from Orders
 
 exec usp_DeleteAddress @UserId = 2, @AddressId = 4
 

@@ -82,19 +82,20 @@ namespace RepositoryLayer.Services
                     {
                         Orders order = new Orders()
                         {
-                            OrderId = (int)dataReader["OrderId"],
-                            UserId = (int)dataReader["UserId"],
-                            AddressId = (int)dataReader["AddressId"],
-                            BookId = (int)dataReader["BookId"],
-                            Title = (string)dataReader["Title"],
-                            Author = (string)dataReader["Author"],
-                            Image = (string)dataReader["Image"],
-                            Quantity = (int)dataReader["Quantity"],
-                            TotalOriginalBookPrice = (int)dataReader["TotalOriginalBookPrice"],
-                            TotalFinalBookPrice = (int)dataReader["TotalFinalBookPrice"],
-                            OrderDateTime = (DateTime)dataReader["OrderDateTime"],
-                            IsDeleted = (bool)dataReader["IsDeleted"]
+                            OrderId = dataReader["OrderId"] != DBNull.Value ? (int)dataReader["OrderId"] : default(int),
+                            UserId = dataReader["UserId"] != DBNull.Value ? (int)dataReader["UserId"] : default(int),
+                            AddressId = dataReader["AddressId"] != DBNull.Value ? (int)dataReader["AddressId"] : default(int),
+                            BookId = dataReader["BookId"] != DBNull.Value ? (int)dataReader["BookId"] : default(int),
+                            Title = dataReader["Title"] != DBNull.Value ? (string)dataReader["Title"] : string.Empty,
+                            Author = dataReader["Author"] != DBNull.Value ? (string)dataReader["Author"] : string.Empty,
+                            Image = dataReader["Image"] != DBNull.Value ? (string)dataReader["Image"] : string.Empty,
+                            Quantity = dataReader["Quantity"] != DBNull.Value ? (int)dataReader["Quantity"] : default(int),
+                            TotalOriginalBookPrice = dataReader["TotalOriginalBookPrice"] != DBNull.Value ? (int)dataReader["TotalOriginalBookPrice"] : default(int),
+                            TotalFinalBookPrice = dataReader["TotalFinalBookPrice"] != DBNull.Value ? (int)dataReader["TotalFinalBookPrice"] : default(int),
+                            OrderDateTime = dataReader["OrderDateTime"] != DBNull.Value ? (DateTime)dataReader["OrderDateTime"] : default(DateTime),
+                            IsDeleted = dataReader["IsDeleted"] != DBNull.Value ? (bool)dataReader["IsDeleted"] : default(bool)
                         };
+
                         orders.Add(order);
                     }
                     return orders;
@@ -128,19 +129,20 @@ namespace RepositoryLayer.Services
                     {
                         Orders order = new Orders()
                         {
-                            OrderId = (int)dataReader["OrderId"],
-                            UserId = (int)dataReader["UserId"],
-                            AddressId = (int)dataReader["AddressId"],
-                            BookId = (int)dataReader["BookId"],
-                            Title = (string)dataReader["Title"],
-                            Author = (string)dataReader["Author"],
-                            Image = (string)dataReader["Image"],
-                            Quantity = (int)dataReader["Quantity"],
-                            TotalOriginalBookPrice = (int)dataReader["TotalOriginalBookPrice"],
-                            TotalFinalBookPrice = (int)dataReader["TotalFinalBookPrice"],
-                            OrderDateTime = (DateTime)dataReader["OrderDateTime"],
-                            IsDeleted = (bool)dataReader["IsDeleted"]
+                            OrderId = dataReader["OrderId"] != DBNull.Value ? (int)dataReader["OrderId"] : default(int),
+                            UserId = dataReader["UserId"] != DBNull.Value ? (int)dataReader["UserId"] : default(int),
+                            AddressId = dataReader["AddressId"] != DBNull.Value ? (int)dataReader["AddressId"] : default(int),
+                            BookId = dataReader["BookId"] != DBNull.Value ? (int)dataReader["BookId"] : default(int),
+                            Title = dataReader["Title"] != DBNull.Value ? (string)dataReader["Title"] : string.Empty,
+                            Author = dataReader["Author"] != DBNull.Value ? (string)dataReader["Author"] : string.Empty,
+                            Image = dataReader["Image"] != DBNull.Value ? (string)dataReader["Image"] : string.Empty,
+                            Quantity = dataReader["Quantity"] != DBNull.Value ? (int)dataReader["Quantity"] : default(int),
+                            TotalOriginalBookPrice = dataReader["TotalOriginalBookPrice"] != DBNull.Value ? (int)dataReader["TotalOriginalBookPrice"] : default(int),
+                            TotalFinalBookPrice = dataReader["TotalFinalBookPrice"] != DBNull.Value ? (int)dataReader["TotalFinalBookPrice"] : default(int),
+                            OrderDateTime = dataReader["OrderDateTime"] != DBNull.Value ? (DateTime)dataReader["OrderDateTime"] : default(DateTime),
+                            IsDeleted = dataReader["IsDeleted"] != DBNull.Value ? (bool)dataReader["IsDeleted"] : default(bool)
                         };
+
                         orders.Add(order);
                     }
                     return orders;
@@ -170,18 +172,18 @@ namespace RepositoryLayer.Services
                     {
                         Orders order = new Orders()
                         {
-                            OrderId = (int)dataReader["OrderId"],
-                            UserId = (int)dataReader["UserId"],
-                            AddressId = (int)dataReader["AddressId"],
-                            BookId = (int)dataReader["BookId"],
-                            Title = (string)dataReader["Title"],
-                            Author = (string)dataReader["Author"],
-                            Image = (string)dataReader["Image"],
-                            Quantity = (int)dataReader["Quantity"],
-                            TotalOriginalBookPrice = (int)dataReader["TotalOriginalBookPrice"],
-                            TotalFinalBookPrice = (int)dataReader["TotalFinalBookPrice"],
-                            OrderDateTime = (DateTime)dataReader["OrderDateTime"],
-                            IsDeleted = (bool)dataReader["IsDeleted"]
+                            OrderId = dataReader["OrderId"] != DBNull.Value ? (int)dataReader["OrderId"] : default(int),
+                            UserId = dataReader["UserId"] != DBNull.Value ? (int)dataReader["UserId"] : default(int),
+                            AddressId = dataReader["AddressId"] != DBNull.Value ? (int)dataReader["AddressId"] : default(int),
+                            BookId = dataReader["BookId"] != DBNull.Value ? (int)dataReader["BookId"] : default(int),
+                            Title = dataReader["Title"] != DBNull.Value ? (string)dataReader["Title"] : string.Empty,
+                            Author = dataReader["Author"] != DBNull.Value ? (string)dataReader["Author"] : string.Empty,
+                            Image = dataReader["Image"] != DBNull.Value ? (string)dataReader["Image"] : string.Empty,
+                            Quantity = dataReader["Quantity"] != DBNull.Value ? (int)dataReader["Quantity"] : default(int),
+                            TotalOriginalBookPrice = dataReader["TotalOriginalBookPrice"] != DBNull.Value ? (int)dataReader["TotalOriginalBookPrice"] : default(int),
+                            TotalFinalBookPrice = dataReader["TotalFinalBookPrice"] != DBNull.Value ? (int)dataReader["TotalFinalBookPrice"] : default(int),
+                            OrderDateTime = dataReader["OrderDateTime"] != DBNull.Value ? (DateTime)dataReader["OrderDateTime"] : default(DateTime),
+                            IsDeleted = dataReader["IsDeleted"] != DBNull.Value ? (bool)dataReader["IsDeleted"] : default(bool)
                         };
                         return order;
                     }
@@ -213,18 +215,18 @@ namespace RepositoryLayer.Services
                     {
                         Orders order = new Orders()
                         {
-                            OrderId = (int)dataReader["OrderId"],
-                            UserId = (int)dataReader["UserId"],
-                            AddressId = (int)dataReader["AddressId"],
-                            BookId = (int)dataReader["BookId"],
-                            Title = (string)dataReader["Title"],
-                            Author = (string)dataReader["Author"],
-                            Image = (string)dataReader["Image"],
-                            Quantity = (int)dataReader["Quantity"],
-                            TotalOriginalBookPrice = (int)dataReader["TotalOriginalBookPrice"],
-                            TotalFinalBookPrice = (int)dataReader["TotalFinalBookPrice"],
-                            OrderDateTime = (DateTime)dataReader["OrderDateTime"],
-                            IsDeleted = (bool)dataReader["IsDeleted"]
+                            OrderId = dataReader["OrderId"] != DBNull.Value ? (int)dataReader["OrderId"] : default(int),
+                            UserId = dataReader["UserId"] != DBNull.Value ? (int)dataReader["UserId"] : default(int),
+                            AddressId = dataReader["AddressId"] != DBNull.Value ? (int)dataReader["AddressId"] : default(int),
+                            BookId = dataReader["BookId"] != DBNull.Value ? (int)dataReader["BookId"] : default(int),
+                            Title = dataReader["Title"] != DBNull.Value ? (string)dataReader["Title"] : string.Empty,
+                            Author = dataReader["Author"] != DBNull.Value ? (string)dataReader["Author"] : string.Empty,
+                            Image = dataReader["Image"] != DBNull.Value ? (string)dataReader["Image"] : string.Empty,
+                            Quantity = dataReader["Quantity"] != DBNull.Value ? (int)dataReader["Quantity"] : default(int),
+                            TotalOriginalBookPrice = dataReader["TotalOriginalBookPrice"] != DBNull.Value ? (int)dataReader["TotalOriginalBookPrice"] : default(int),
+                            TotalFinalBookPrice = dataReader["TotalFinalBookPrice"] != DBNull.Value ? (int)dataReader["TotalFinalBookPrice"] : default(int),
+                            OrderDateTime = dataReader["OrderDateTime"] != DBNull.Value ? (DateTime)dataReader["OrderDateTime"] : default(DateTime),
+                            IsDeleted = dataReader["IsDeleted"] != DBNull.Value ? (bool)dataReader["IsDeleted"] : default(bool)
                         };
                         return order;
                     }
