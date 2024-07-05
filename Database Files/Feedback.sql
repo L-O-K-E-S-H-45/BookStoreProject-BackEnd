@@ -355,11 +355,9 @@ begin
 			RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorStatus);
 		end
 
-		if exists (select 1 from Feedback where BookId = @BookId)
+		if exists (select 1 from Books where BookId = @BookId)
 		begin
-			
 			select * from Feedback where BookId = @BookId;
-
 		end
 		else
 		begin
@@ -373,12 +371,14 @@ begin
 	end catch
 end;
 
-exec usp_ViewAllFeedbacksOfBook @BookId = 5
+exec usp_ViewAllFeedbacksOfBook @BookId = 2
 
 select * from Feedback
 select * from Books
 select * from Carts
 select * from Orders
+
+--truncate table Feedback
 
 
 
